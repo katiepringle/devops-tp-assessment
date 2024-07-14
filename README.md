@@ -12,16 +12,16 @@ DEPRECATION: Configuring installation scheme with distutils config files is depr
 Requirement already satisfied: setuptools in /usr/local/lib/python3.7/site-packages (46.0.0)
 DEPRECATION: Configuring installation scheme with distutils config files is deprecated and will no longer work in the near future. If you are using a Homebrew or Linuxbrew Python, please see discussion at https://github.com/Homebrew/homebrew-core/issues/76621
 ```
-. Install `awscli`
-. Create Access Key in IAM User (katpri). 
-. `configure aws`
-. Login: 
+5. Install `awscli`
+6. Create Access Key in IAM User (katpri). 
+7. `configure aws`
+8. Login: 
 ```
 ➜  travelperk-assessment git:(main) ✗ aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 303981612052.dkr.ecr.eu-north-1.amazonaws.com
 
 Login Succeeded
 ```
-. Create ECR Repository:
+9. Create ECR Repository:
 Now you can create the ECR repository:
 ```
 aws ecr create-repository --repository-name hello-repo
@@ -45,7 +45,7 @@ Output:
     }
 }
 ```
-. Build the Docker Image: 
+10. Build the Docker Image: 
 ```
 ➜  travelperk-assessment git:(main) docker build -t hello-app .
 
@@ -87,7 +87,7 @@ a696d13c7344: Waiting
 32148f9f6c5a: Waiting
 no basic auth credentials
 ```
-. Create ECS Cluster:
+11. Create ECS Cluster:
 ```
 ➜  travelperk-assessment git:(main) aws ecs create-cluster --cluster-name hello-cluster
 {
@@ -112,5 +112,7 @@ no basic auth credentials
     }
 }
 ```
-. Create VPC
-. Create Subnet
+12. Create VPC
+13. Create Subnet
+14. Create terraform file for AWS resources (IaC) - `main.tf`.
+15. Create ECS task definition.
