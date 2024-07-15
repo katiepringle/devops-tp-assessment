@@ -1,18 +1,23 @@
 provider "aws" {
+  version = "~> 2.0"
   region = "eu-north-1"
 }
 
-resource "aws_ecs_cluster" "cluster" {
-  name = "devops-assessment-cluster"
+terraform {
+  required_version = "~> 0.12.0"
 }
 
-resource "aws_ecs_task_definition" "hello-task" {
+resource "aws_ecs_cluster" "cluster" {
+  name = "hello-cluster"
+}
+
+resource "aws_ecs_task_definition" "task" {
   family                   = "hello-task"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  execution_role_arn       = "arn:aws:ecs:eu-north-1:303981612052:cluster/hello-cluster"
-  cpu                      = "256"
-  memory                   = "512"
+  execution_role_arn       = "arn:aws:ecs:eu-north-1:303981612052:task-definition/hello-task:1"
+  cpu                      = "1024"
+  memory                   = "3072"
   container_definitions    = <<DEFINITION
   [
     {
@@ -30,7 +35,7 @@ resource "aws_ecs_task_definition" "hello-task" {
   DEFINITION
 }
 
-resource "aws_ecs_service" "hello-service" {
+resource "aws_ecs_service" "service" {
   name            = "hello-service"
   cluster         = aws_ecs_cluster.cluster.id
   task_definition = aws_ecs_task_definition.hello-task.arn
@@ -49,12 +54,56 @@ resource "aws_ecs_service" "hello-service" {
   }
 }
 
+# Define VPC
+resource "aws_vpc" "main" {
+ cidr_block = "10.0.0.0/16"
+ 
+ tags = {
+   Name = "hello-vpc"
+   User = "katpri"
+ }
+}
+
+
+# Define Subnets
+resource "aws_subnet" "subnet_a" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.0.1.0/24"
+  availability_zone = "eu-north-1a"
+}
+
+resource "aws_subnet" "subnet_b" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.0.2.0/24"
+  availability_zone = "eu-north-1b"
+}
+
+# Define Security Group
+resource "aws_security_group" "alb_sg" {
+  vpc_id = aws_vpc.main.id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+# Create Application Load Balancer
 resource "aws_lb" "lb" {
   name               = "hello-lb"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = ["<security-group-id>"]
-  subnets            = ["<subnet-1>", "<subnet-2>"]
+  security_groups    = [aws_security_group.alb_sg.id]
+  subnets            = [aws_subnet.subnet_a.id, aws_subnet.subnet_b.id]
 
   enable_deletion_protection = false
 }
