@@ -27,9 +27,7 @@ jobs:
         pip install --no-cache-dir -e .
 
     - name: Run tests
-      run: |
-      pip install pytest
-      pytest
+      run: pytest
 
   deploy:
     runs-on: ubuntu-latest
