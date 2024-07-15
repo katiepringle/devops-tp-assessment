@@ -12,10 +12,18 @@ DEPRECATION: Configuring installation scheme with distutils config files is depr
 Requirement already satisfied: setuptools in /usr/local/lib/python3.7/site-packages (46.0.0)
 DEPRECATION: Configuring installation scheme with distutils config files is deprecated and will no longer work in the near future. If you are using a Homebrew or Linuxbrew Python, please see discussion at https://github.com/Homebrew/homebrew-core/issues/76621
 ```
-5. Install `awscli`
-6. Create Access Key in IAM User (katpri). 
-7. `configure aws`
-8. Login: 
+```
+➜  devops-tp-assessment git:(main) python3 setup.py install
+
+Traceback (most recent call last):
+  File "/Users/katie.pringle/github/devops-tp-assessment/setup.py", line 1, in <module>
+    from setuptools import find_packages, setup
+ModuleNotFoundError: No module named 'setuptools'
+```
+6.  Install `awscli`
+7. Create Access Key in IAM User (katpri). 
+8. `configure aws`
+9. Login: 
 ```
 ➜  travelperk-assessment git:(main) ✗ aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 303981612052.dkr.ecr.eu-north-1.amazonaws.com
 
