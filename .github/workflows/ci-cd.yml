@@ -27,7 +27,9 @@ jobs:
         pip install --no-cache-dir -e .
 
     - name: Run tests
-      run: pytest
+      run: |
+      pip install pytest
+      pytest
 
   deploy:
     runs-on: ubuntu-latest
@@ -43,7 +45,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-west-2
+        aws-region: eu-north-1
 
     - name: Deploy to ECS
       run: |
