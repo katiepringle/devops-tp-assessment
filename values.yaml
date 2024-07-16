@@ -1,0 +1,5 @@
+atlantis:
+  ghUser: "katiepringle"
+  ghTokenSecretName: "atlantis-github-token"
+  ghTokenSecretKey: "token"
+  repoWhitelist: "github.com/katiepringle/devops-tp-assessment"

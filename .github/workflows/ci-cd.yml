@@ -51,3 +51,5 @@ jobs:
     - name: Deploy to ECS
       run: |
         aws ecs update-service --cluster hello-cluster --service hello-service --force-new-deployment
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
