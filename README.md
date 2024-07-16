@@ -125,3 +125,12 @@ no basic auth credentials
 14. Create terraform file for AWS resources (IaC) - `main.tf`, `variables.tf` and `data.tf`.
 15. Create ECS task definition.
 16. Create CI-CD yaml - Github Actions.
+17. Explore Atlantis for CI/CD workflows with Terraform.
+
+References:
+https://spacelift.io/blog/terraform-aws-vpc
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_cluster
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_task_definition 
+https://docs.aws.amazon.com/vpc/latest/userguide/subnet-sizing.html
+
