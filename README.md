@@ -121,6 +121,7 @@ no basic auth credentials
 }
 ```
 12. Create VPC
-13. Create Subnet
-14. Create terraform file for AWS resources (IaC) - `main.tf`.
+13. Create Subnet 
+14. Create terraform file for AWS resources (IaC) - `main.tf`, `variables.tf` and `data.tf`.
 15. Create ECS task definition.
+16. Create CI-CD yaml - Github Actions.
