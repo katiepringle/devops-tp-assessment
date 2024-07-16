@@ -120,12 +120,52 @@ no basic auth credentials
     }
 }
 ```
+
 12. Create VPC
-13. Create Subnet 
+13. Create Subnets
 14. Create terraform file for AWS resources (IaC) - `main.tf`, `variables.tf` and `data.tf`.
 15. Create ECS task definition.
 16. Create CI-CD yaml - Github Actions.
-17. Explore Atlantis for CI/CD workflows with Terraform.
+17. Explore Atlantis for CI/CD workflows with Terraform: 
+```
+➜  github git clone git@github.com:argoproj/argo-cd.git
+Cloning into 'argo-cd'...
+Enter passphrase for key '/Users/katie.pringle/.ssh/id_rsa':
+remote: Enumerating objects: 131455, done.
+remote: Counting objects: 100% (17708/17708), done.
+remote: Compressing objects: 100% (614/614), done.
+remote: Total 131455 (delta 17413), reused 17158 (delta 17092), pack-reused 113747
+Receiving objects: 100% (131455/131455), 97.45 MiB | 5.64 MiB/s, done.
+Resolving deltas: 100% (87041/87041), done.
+Updating files: 100% (3616/3616), done.
+➜  github cd argo-cd
+➜  argo-cd git:(master) kubectl apply -k https://github.com/argoproj/argo-cd/manifests/crds\?ref\=stable
+customresourcedefinition.apiextensions.k8s.io/applications.argoproj.io created
+customresourcedefinition.apiextensions.k8s.io/applicationsets.argoproj.io created
+customresourcedefinition.apiextensions.k8s.io/appprojects.argoproj.io created
+➜  argo-cd git:(master) kubectl create namespace atlantis
+
+namespace/atlantis created
+➜  argo-cd git:(master) kubectl create secret generic atlantis-github-token \
+  --from-literal=token=YOUR_GITHUB_TOKEN \
+  -n atlantis
+
+secret/atlantis-github-token created
+➜  argo-cd git:(master) helm repo add atlantis https://runatlantis.github.io/helm-charts
+helm repo update
+
+helm install atlantis atlantis/atlantis \
+  --namespace atlantis \
+  --set github.token=$GITHUB_TOKEN \
+  --set atlantis.secret=$GITHUB_SECRET
+
+"atlantis" has been added to your repositories
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "atlantis" chart repository
+...Successfully got an update from the "prometheus-community" chart repository
+...Successfully got an update from the "grafana" chart repository
+Update Complete. ⎈Happy Helming!⎈
+```
 
 References:
 https://spacelift.io/blog/terraform-aws-vpc
