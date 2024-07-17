@@ -80,20 +80,20 @@ What's Next?
   ```
   . Tag and push Docker image to ECR:
   ```
-  ➜  travelperk-assessment git:(main) docker tag hello-app:latest 303981612052.dkr.ecr.us-east-1.amazonaws.com/hello-app:latest
-docker push 303981612052.dkr.ecr.us-east-1.amazonaws.com/hello-app:latest
-
-The push refers to repository [303981612052.dkr.ecr.us-east-1.amazonaws.com/hello-app]
-ae6ec9ab1726: Preparing
-af64f5e48a4a: Preparing
-2f1bab7f7680: Preparing
-6f75c507ceb2: Preparing
-8b81fa4c988f: Preparing
-38d395ab1f6c: Waiting
-fda4aa6f33af: Waiting
-a696d13c7344: Waiting
-32148f9f6c5a: Waiting
-no basic auth credentials
+  ➜  ➜  devops-tp-assessment git:(main) docker tag hello-repo:latest 303981612052.dkr.ecr.eu-north-1.amazonaws.com/hello-repo:latest
+➜  devops-tp-assessment git:(main) docker push 303981612052.dkr.ecr.eu-north-1.amazonaws.com/hello-repo:latest
+The push refers to repository [303981612052.dkr.ecr.eu-north-1.amazonaws.com/hello-repo]
+2f657439a75f: Pushed
+880e9b6e0311: Pushed
+a3a2311abb34: Pushed
+6f75c507ceb2: Pushed
+8b81fa4c988f: Pushed
+38d395ab1f6c: Pushed
+fda4aa6f33af: Pushed
+a696d13c7344: Pushed
+32148f9f6c5a: Pushed
+latest: digest: sha256:35d7298412de09d42d79fb7cb9b6bad01352f3db34f668a7b700c600be551f84 size: 2206
+➜  devops-tp-assessment git:(main)
 ```
 11. Create ECS Cluster:
 ```
